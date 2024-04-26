@@ -37,3 +37,44 @@ console.log({uber});
 // and the Quiz class will manage a collection of questions and the user's progress.
 
 
+class Question {
+    constructor(text, options, correctAnswer) {
+        this.text = text;
+        this.options = options;
+        this.correctAnswer = correctAnswer;
+    }
+    checkAnswer(userAnswer) {
+        if(userAnswer != this.correctAnswer){
+            return false;
+        }
+        return true;
+    }
+}
+// Quiz class
+class Quiz {
+    constructor() {
+        this.questions = [];
+        this.currentQuestionIndex = 0;
+        this.score = 0;
+    }
+    addQuestion(question) {
+        this.questions.push(question);
+    }
+    nextQuestion() {
+        this.currentQuestionIndex++;
+    }
+    submitAnswer(userAnswer) {
+    const currentQuestion = this.questions[this.currentQuestionIndex];
+    if (currentQuestion.checkAnswer(userAnswer)) {
+        this.score++;
+    }
+    this.nextQuestion();
+    }
+}
+const quiz = new Quiz();
+ console.log({quiz});
+quiz.addQuestion(new Question("Where do christians go to pray?", ["Temple", "Church", "Caves", "Mosque"], "Houses"));
+quiz.addQuestion(new Question("What is the capital city of German", ["Nairobi", "Washington", "Berlin", "Cape Town"], "Kampala"));
+quiz.submitAnswer("Church");
+quiz.submitAnswer("Berlin");
+console.log("Score: " + quiz.score);
